@@ -32,22 +32,22 @@ export class TodolistService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let body = JSON.stringify(task);
-    return this.http.post('http://localhost:3000/addTask', body, {headers: headers}).map(res => res.json());
+    return this.http.post('https://mighty-brushlands-14308.herokuapp.com/addTask', body, {headers: headers}).map(res => res.json());
   }
 
   removeTask(id) {
-    return this.http.delete('http://localhost:3000/deleteTask/'+id).map(res => res.json());
+    return this.http.delete('https://mighty-brushlands-14308.herokuapp.com//deleteTask/'+id).map(res => res.json());
   }
 
   getDone(id) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let body = null;
-    return this.http.put('http://localhost:3000/doTask/'+id, body, {headers: headers}).map(res => res.json());
+    return this.http.put('https://mighty-brushlands-14308.herokuapp.com/doTask/'+id, body, {headers: headers}).map(res => res.json());
   }
 
   getTasks() {
-    return this.http.get('http://localhost:3000/listTasks').map(res => res.json());
+    return this.http.get('https://mighty-brushlands-14308.herokuapp.com/listTasks').map(res => res.json());
   }
 
   getStatus(task) {
