@@ -36,7 +36,7 @@ export class TodolistService {
   }
 
   removeTask(id) {
-    return this.http.delete('https://mighty-brushlands-14308.herokuapp.com//deleteTask/'+id).map(res => res.json());
+    return this.http.delete('https://mighty-brushlands-14308.herokuapp.com/deleteTask/'+id).map(res => res.json());
   }
 
   getDone(id) {

@@ -11,8 +11,10 @@ export class ItemFilterPipe implements PipeTransform {
     let st = args;
     var res;
     if (st==="all")
-      res = value;
-    else res = value.filter(function(task) {
+      res = value.filter((task) => {
+        return task.status !== 'done';
+      });
+    else res = value.filter((task) => {
       return task.status === st;
     });
     return res;
