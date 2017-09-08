@@ -27,6 +27,7 @@ export class TodotabComponent implements OnInit {
   active : boolean;
   @Input() tabStatus : string;
   tasks: Array<ToDoItem>;
+  @Input() currentUser: string;
 
   constructor(@Inject('tdl') private tdl, tabs: TodotabsComponent) {
     tabs.addTab(this);
@@ -38,14 +39,15 @@ export class TodotabComponent implements OnInit {
   }
 
   getTasks() {
-    this.tdl.getTasks().subscribe(
-      data => {this.tasks = data;},
+    this.tdl.getTasks(this.currentUser).subscribe(
+      data => {this.tasks = data;
+               this.tasks = this.tasks.reverse()},
       err => {console.log('Error while reading tasks: '+err);}
     );
   }
 
   addTask(name, details, status) {
-    this.tdl.addTask(name, details, status).subscribe(
+    this.tdl.addTask(this.currentUser, name, details, status).subscribe(
       data => {
         this.getTasks();
         return true;
@@ -57,7 +59,7 @@ export class TodotabComponent implements OnInit {
   }
 
   getDone(id) {
-    this.tdl.getDone(id).subscribe(
+    this.tdl.getDone(this.currentUser, id).subscribe(
       data => {
         this.getTasks();
         return true;
@@ -69,7 +71,7 @@ export class TodotabComponent implements OnInit {
   }
 
   removeTask(id) {
-    this.tdl.removeTask(id).subscribe(
+    this.tdl.removeTask(this.currentUser, id).subscribe(
       data => {
         this.getTasks();
         return true;

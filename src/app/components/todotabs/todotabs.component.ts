@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { TodotabComponent } from '../todotab/todotab.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todotabs',
@@ -19,12 +20,13 @@ import { TodotabComponent } from '../todotab/todotab.component';
         <option>Done</option>
       </select>
 
-      <button type="button" class="btn btn-primary" style="margin-top:15px; width: 10%;" (click) = "clearInputs(); this.addTask(task,details,status)">Add</button>
-      <button type="button" class="btn btn-default" style="margin-top:15px; margin-left: 10px; width:10%;" (click) = "clearInputs()">Cancel</button>
+      <button type="button" class="btn btn-primary" style="margin-top:15px; display: inline-block;" (click) = "clearInputs(); this.addTask(task,details,status)">Add</button>
+      <button type="button" class="btn btn-default" style="margin-top:15px; margin-left: 10px; display: inline-block;" (click) = "clearInputs()">Cancel</button>
+      <button type="button" class="btn btn-default" style="margin-top:15px; margin-left: 10px; display: inline-block;" (click) = "logOut()">Log Out</button>
     </div>
 
     <ul class="nav nav-tabs" style="margin-top:10px">
-      <li *ngFor="let tab of tabs" (click)=selectTab(tab) [class]="isSelected(tab)"><a href="#">{{tab.tabTitle}}</a></li>
+      <li *ngFor="let tab of tabs" (click)="selectTab(tab)" [class]="isSelected(tab)" style="cursor: pointer"><a>{{tab.tabTitle}}</a></li>
     </ul>
     <ng-content></ng-content>
   `,
@@ -71,7 +73,11 @@ export class TodotabsComponent implements OnInit {
     return tab.active ? "active" : "";
   }
 
-  constructor() { }
+  logOut() {
+    this.router.navigate(['/']);
+  }
+
+  constructor(private router:Router) { }
 
   ngOnInit() {
   }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
+import {apiUrl, contentHeaders } from '../common/app.communication';
 
 export class ToDoItem {
   id : number;
@@ -24,30 +25,27 @@ export class TodolistService {
   private static URGENT = 'urgent';
   private static DONE = 'done';
 
-  addTask(name, details, status) {
+
+  addTask(user, name, details, status) {
     let task = {
       "name": name, 
       "details": details,
       "status": status.toLowerCase()};
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
     let body = JSON.stringify(task);
-    return this.http.post('https://mighty-brushlands-14308.herokuapp.com/addTask', body, {headers: headers}).map(res => res.json());
+    return this.http.post(apiUrl+'addTask/'+user, body, {headers: contentHeaders}).map(res => res.json());
   }
 
-  removeTask(id) {
-    return this.http.delete('https://mighty-brushlands-14308.herokuapp.com/deleteTask/'+id).map(res => res.json());
+  removeTask(user, id) {
+    return this.http.delete(apiUrl+'deleteTask/'+user+'/'+id).map(res => res.json());
   }
 
-  getDone(id) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+  getDone(user, id) {
     let body = null;
-    return this.http.put('https://mighty-brushlands-14308.herokuapp.com/doTask/'+id, body, {headers: headers}).map(res => res.json());
+    return this.http.put(apiUrl+'doTask/'+user+'/'+id, body, {headers: contentHeaders}).map(res => res.json());
   }
 
-  getTasks() {
-    return this.http.get('https://mighty-brushlands-14308.herokuapp.com/listTasks').map(res => res.json());
+  getTasks(user) {
+    return this.http.get(apiUrl+'listTasks/'+user).map(res => res.json());
   }
 
   getStatus(task) {
