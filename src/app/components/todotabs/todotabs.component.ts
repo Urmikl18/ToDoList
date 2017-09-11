@@ -49,7 +49,7 @@ export class TodotabsComponent implements OnInit {
   {
     this.nameInput.nativeElement.value = null;
     this.detailsInput.nativeElement.value = null;
-    this.statusInput.nativeElement.value = 'Normal';
+    this.statusInput.nativeElement.value = null;
   }
 
   addTask(name, details, status) {
